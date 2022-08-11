@@ -1,7 +1,7 @@
 <?php
-
 $today = date('d.m.Y');
-$now = date('H:i:s'); ?>
+$now = date('H:i:s');
+?>
 
 </main>
 <footer class="footer">
