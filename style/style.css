@@ -16,7 +16,7 @@ html, body {
 
 .input {
     display: block;
-    width: 350px;
+    width: 300px;
     height: 3vh;
     margin: 20px auto 20px auto;
     border-radius: 10px;
@@ -72,7 +72,7 @@ td, th{
 .productThumb{
     width:300px;
     height:auto;
-    background-color: cornsilk;
+    background-color: white;
     -webkit-box-shadow: 0px 0px 10px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 10px -4px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 10px -4px rgba(0,0,0,0.75);

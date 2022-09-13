@@ -24,7 +24,8 @@ class Product extends Connection
             echo '<h3>Das Produkt wurde erfolgreich erstellt, du wirst in Kürze weitergeleitet!</h3>';
             header("Refresh:3; url=allproducts.php");
         } else {
-            throw new Exception('<h3>Ein Produkt mit diesem Namen existiert bereits!</h3>');
+            echo '<h3>Ein Produkt mit diesem Namen existiert bereits!</h3>';
+            header("Refresh:3; url=editproduct.php");
         }
 
     }
@@ -35,8 +36,7 @@ class Product extends Connection
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
 
-        while ($product = $stmt->fetch())
-        {
+        while ($product = $stmt->fetch()) {
             // zwecks Kontrolle --> print_r($product);
             echo "<div class='productThumb'>
                   <h4>Product ID: " . $product['id'] . "</h4>
@@ -44,10 +44,38 @@ class Product extends Connection
                   <h4>Beschreibung: " . $product['description'] . "</h4>
                   <h4>€ " . $product['price'] . "</h4>
                   <img class='image' src='images/" . $product['image'] . "'>";
-            if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 1)
-            {
-                echo "<h4><a href='productprofil.php?uid=" . $product['id'] . "'>Produkt löschen</a></h4>";
-            } echo "</div > ";
+            if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 1) {
+                echo "<h4><a href='deleteproduct.php?pid=" . $product['id'] . "'>Produkt löschen</a></h4>";
+            }
+            echo "</div > ";
         }
+    }
+
+    public function loadProduct($pid)
+    {
+
+        $sql = "SELECT * FROM product WHERE id = '$pid'";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        while ($product = $stmt->fetch()) {
+            echo "<div class='productThumb'>
+                  <h4>Product ID: " . $product['id'] . "</h4>
+                  <h4>Name: " . $product['name'] . "</h4>
+                  <h4>Beschreibung: " . $product['description'] . "</h4>
+                  <h4>€ " . $product['price'] . "</h4>
+                  <img class='image' src='images/" . $product['image'] . "'>";
+        }
+
+    }
+
+    public function deleteProduct($product)
+    {
+        $id = $product->getId();
+        $sql = "DELETE * FROM  WHERE id = '$id'";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+        echo "<h4>Du hast das auserwählte Produkt erfolgreich gelöscht!";
+        header("Refresh:3; url=allproducts.php");
     }
 }
