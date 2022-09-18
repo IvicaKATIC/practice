@@ -1,6 +1,6 @@
 html, body {
     margin: 0;
-    font-family: Verdana;
+    font-family: Verdana, sans-serif;
     font-size: 12px;
     color: #433;
     background-image: url(../images/hintergrund_1.png);

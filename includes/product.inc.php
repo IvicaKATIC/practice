@@ -69,6 +69,22 @@ class Product extends Connection
 
     }
 
+    public function addToCart($id)
+    {   
+        $sql = "SELECT * FROM product WHERE id = $id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$id]);
+
+        $product_id = $id['product_id'];
+        $user_id = $id['user_id'];
+        $amount = $id['amount'];
+
+        $sql = "INSERT INSERT product (product_id, user_id, amount) VALUES (?,?,?)";
+        $stmt = $this->connect()->query($sql);
+        $stmt->execute([$product_id, $user_id, $amount]);
+        echo '<h2>Das Produkt wurde erfolgreich hinzugefügt!</h2>';
+    }
+
     public function deleteProduct($product)
     {
         $id = $product->getId();

@@ -44,7 +44,6 @@ class User extends Connection
         $stmt->execute([$email, $pw]);
         $r = $stmt->fetch();
         if ($stmt->rowCount() == 1) {
-
             $_SESSION['email'] = $email;
             $_SESSION['loggedin'] = true;
             $_SESSION['user_role'] = $r['role'];
