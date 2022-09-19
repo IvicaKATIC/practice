@@ -11,13 +11,13 @@ include 'includes/header.inc.php';
         ?>
         <br>
         <h4>Bist du sicher dass das Auserwählte Produkt löschen willst?</h4>
-        <button type="submit" name="deletebtn" class="button">Löschen</button>
+        <form action="" method="POST">
+            <button type="submit" name="deletebtn" class="button">Löschen</button>
+        </form>
         <?php
         if (isset($_POST['deletebtn'])) {
-            include 'includes/product.inc.php';
-            $product = new Product();
             try {
-                $product->deleteProduct($_POST);
+                $product->deleteProduct($id);
             } catch (Exception $ex) {
                 echo $ex->getMessage();
             }

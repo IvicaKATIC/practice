@@ -50,10 +50,10 @@ class Product extends Connection
         }
     }
 
-    public function loadProduct($id)
+    public function loadProduct($pid)
     {
 
-        $sql = "SELECT * FROM product WHERE id = '$id'";
+        $sql = "SELECT * FROM product WHERE id = '$pid'";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
 
@@ -68,14 +68,14 @@ class Product extends Connection
 
     }
 
-    public function deleteProduct($product)
+    public function deleteProduct($id)
     {
-        $id = $product->getId();
-        $sql = "DELETE * FROM  WHERE id = $id";
+        $sql = "DELETE FROM product WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
         echo "<h4>Du hast das auserwählte Produkt erfolgreich gelöscht!";
-        header("Refresh:3; url=allproducts.php");
+        // nach dem löschen zurück zum Shop
+        header("Refresh:3; url=shop.php");
     }
 
     public function addToCart($id)
