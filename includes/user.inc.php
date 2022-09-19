@@ -52,7 +52,7 @@ class User extends Connection
                 header("Refresh:3; url=admin.php");
             } elseif ($r['role'] == 0) {
                 echo "<h3>Erfolgreich eingeloggt! Du wirst in Kürze weitergeleitet!</h3>";
-                header("Refresh:3; url=user.php");
+                header("Refresh:3; url=shop.php");
             }
         }else{
             echo "<h3>Achtung, ihre Anmeldedaten sind falsch!</h3>";

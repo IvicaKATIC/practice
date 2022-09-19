@@ -1,7 +1,13 @@
 <?php
-$site_name = "Produktübersicht";
+$site_name = "Shop";
 include 'includes/header.inc.php'; ?>
 
+<div class="content">
+    <article>
+        <h2>Herzlich willkommen!<br><br>
+        </h2>
+    </article>
+</div>
 <div class="productcontent">
     <?php
     include 'includes/product.inc.php';
@@ -10,6 +16,8 @@ include 'includes/header.inc.php'; ?>
     ?>
 </div>
 
+
 <?php
 include 'includes/footer.inc.php';
 ?>
+
