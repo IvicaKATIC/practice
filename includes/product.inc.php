@@ -22,7 +22,7 @@ class Product extends Connection
             $r = $stmt->fetch();
             print_r($r);
             echo '<h3>Das Produkt wurde erfolgreich erstellt, du wirst in Kürze weitergeleitet!</h3>';
-            header("Refresh:3; url=allproducts.php");
+            header("Refresh:3; url=shop.php");
         } else {
             echo '<h3>Ein Produkt mit diesem Namen existiert bereits!</h3>';
             header("Refresh:3; url=editproduct.php");
@@ -37,7 +37,6 @@ class Product extends Connection
         $stmt->execute();
 
         while ($product = $stmt->fetch()) {
-            // zwecks Kontrolle --> print_r($product);
             echo "<div class='productThumb'>
                   <h4>Product ID: " . $product['id'] . "</h4>
                   <h4>Name: " . $product['name'] . "</h4>
@@ -51,10 +50,10 @@ class Product extends Connection
         }
     }
 
-    public function loadProduct($pid)
+    public function loadProduct($id)
     {
 
-        $sql = "SELECT * FROM product WHERE id = '$pid'";
+        $sql = "SELECT * FROM product WHERE id = '$id'";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
 
@@ -69,11 +68,21 @@ class Product extends Connection
 
     }
 
+    public function deleteProduct($product)
+    {
+        $id = $product->getId();
+        $sql = "DELETE * FROM  WHERE id = $id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+        echo "<h4>Du hast das auserwählte Produkt erfolgreich gelöscht!";
+        header("Refresh:3; url=allproducts.php");
+    }
+
     public function addToCart($id)
-    {   
+    {
         $sql = "SELECT * FROM product WHERE id = $id";
-            $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$id]);
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
 
         $product_id = $id['product_id'];
         $user_id = $id['user_id'];
@@ -83,15 +92,5 @@ class Product extends Connection
         $stmt = $this->connect()->query($sql);
         $stmt->execute([$product_id, $user_id, $amount]);
         echo '<h2>Das Produkt wurde erfolgreich hinzugefügt!</h2>';
-    }
-
-    public function deleteProduct($product)
-    {
-        $id = $product->getId();
-        $sql = "DELETE * FROM  WHERE id = '$id'";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$id]);
-        echo "<h4>Du hast das auserwählte Produkt erfolgreich gelöscht!";
-        header("Refresh:3; url=allproducts.php");
     }
 }
